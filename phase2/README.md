@@ -1,0 +1,178 @@
+# Phase 2 — Advanced Analysis & Feature Engineering
+
+DEPI / IBM Data Science graduation project: **Customer Churn Prediction**, Milestone 2.
+
+Phase 2 starts from the cleaned and split data that Phase 1 produced and prepares everything that model development
+(Phase 3) needs: tested churn drivers, engineered features, an updated preprocessing pipeline, a selected feature
+set, a Logistic Regression baseline to beat, a dashboard, and a reference dataset for drift monitoring.
+
+| Requirement (team breakdown, 21 Nov 2026) | Where it is done | Output |
+|---|---|---|
+| Statistical tests with effect sizes (Cramér's V, Cohen's d) | Notebook section 3 | `results/statistical_tests.csv`, `figures/effect_size_ranking.png` |
+| New features and transformations, leakage review per feature | Sections 2 and 5 | `results/feature_engineering_summary.csv`, `src/phase2_features.py`, `models/pipeline_v2.pkl` |
+| Correlation analysis, and RFE on a stratified sample of the training data | Sections 4 and 6 | `figures/correlation_v2.png`, `results/rfe_ranking.csv`, `results/selected_features.csv`, `figures/rfe_number_of_features.png` |
+| Logistic Regression baseline: preprocessing pipeline, cross-validation, MLflow | Sections 6, 7 and 11 | `models/baseline_logreg.pkl`, `results/baseline_metrics.csv`, MLflow run `phase2-baseline-logistic-regression` |
+| Dashboard: churned vs non-churned segmentation and churn trends | Section 8 | `figures/dashboard.html` (6 interactive charts) |
+| Evidently report, train vs test, with a reference dataset for monitoring | Section 10 | `monitoring/evidently_train_vs_test.html`, `monitoring/reference_data.csv`, `results/evidently_drift_summary.csv` |
+| Deliverables: Data Analysis Report, Feature Engineering Summary | `reports/` | two PDFs |
+
+**Handing over to Phase 3:** read [`HANDOVER_PHASE3.md`](HANDOVER_PHASE3.md).
+
+## Folder structure
+
+```
+phase2/
+├── README.md                      this file
+├── HANDOVER_PHASE3.md             what Phase 3 gets and how to start
+├── requirements.txt               pinned library versions (the tested ones)
+├── .gitignore                     keeps the Phase 1 copies and MLflow's local store out of Git
+├── .gitattributes                 stores data/processed/*.csv with Git LFS
+├── notebooks/
+│   ├── 02_phase2_code.ipynb       the Phase 2 notebook, run from a clean kernel, with outputs
+│   └── 02_phase2_explained.ipynb  same code and outputs, with a step-by-step explanation (Arabic)
+├── src/
+│   └── phase2_features.py         add_features() and the column lists, importable by Phases 3 and 4
+├── data/
+│   ├── input/                     Phase 1 outputs go here (not in Git): train.csv, validation.csv, test.csv, pipeline.pkl
+│   └── processed/                 train_v2.csv, validation_v2.csv, test_v2.csv (Git LFS; also recreated by the notebook)
+├── models/
+│   ├── pipeline_v2.pkl            preprocessing pipeline (FeatureUnion), fitted on train; 43 columns in, 49 out
+│   └── baseline_logreg.pkl        the baseline: StandardScaler + LogisticRegression on the 9 selected features
+├── results/
+│   ├── statistical_tests.csv            41 tests: statistic, p-value, effect size, Bonferroni, strength, rank
+│   ├── feature_engineering_summary.csv  the 12 new features: formula, reason, zero/missing handling, leakage check
+│   ├── rfe_ranking.csv                  RFE ranking of all 49 model features
+│   ├── selected_features.csv            the 9 features RFE kept
+│   ├── model_feature_names.csv          the 49 pipeline output columns, in order
+│   ├── baseline_metrics.csv             baseline CV and validation metrics
+│   ├── evidently_drift_summary.csv      per-column drift result, train vs test
+│   └── mlflow_runs.csv                  params and metrics of the two Phase 2 MLflow runs
+├── figures/                       PNG charts from the analysis, and dashboard.html
+├── monitoring/
+│   ├── reference_data.csv         50,000 stratified training rows (no customer_id), the reference for monitoring
+│   └── evidently_train_vs_test.html
+└── reports/
+    ├── Phase2_Data_Analysis_Report.pdf
+    └── Phase2_Feature_Engineering_Summary.pdf
+```
+
+## Installing
+
+Python 3.13 was used (3.13.14). From the `phase2` folder:
+
+```bash
+pip install -r requirements.txt
+```
+
+The first cell of the notebook runs the same command. Notes on the pinned versions:
+
+- `sklearn-features` is required: the Phase 1 and Phase 2 pipelines use its `DataFrameSelector` (the course's Session 8
+  pipeline), and the `.pkl` files do not load without it. Load the pickles with the pinned scikit-learn version.
+- `evidently==0.7.23` requires `plotly<6`, so Plotly is pinned to 5.24.1. Installing Evidently into an environment that
+  has Plotly 6 or newer downgrades Plotly; the dashboard code works with 5.24.1 (tested).
+
+A virtual environment is recommended (`python -m venv .venv`, then activate it). The `.venv` folder is ignored by Git.
+
+## Inputs (from Phase 1)
+
+The notebook reads four Phase 1 outputs and does not change them:
+
+| File | What it is |
+|---|---|
+| `train.csv` | 700,000 rows, 31 columns, stratified 70 % split |
+| `validation.csv` | 150,000 rows |
+| `test.csv` | 150,000 rows |
+| `pipeline.pkl` | Phase 1 preprocessing pipeline (used only for the "Phase 1 features" comparison) |
+
+Either copy them into `data/input/`, or set `PHASE1_DIR` in the notebook's Settings cell to the folder that holds them
+(for example the Phase 1 output folder of the combined repository). Paths are relative, so the notebook runs on
+Windows, macOS and Linux. If a file is missing, the Settings cell stops with a message naming it.
+
+## Running
+
+1. Open `notebooks/02_phase2_code.ipynb` (or the explained version; the code is identical) in Jupyter or VS Code.
+2. Select the Python environment where you installed `requirements.txt`.
+3. **Run All.** On the test laptop the run takes about 5 minutes; the slowest steps are the cross-validation and the
+   RFE in section 6.
+
+Everything is written relative to the `phase2` folder: CSVs to `data/processed/`, the two models to `models/`, tables to
+`results/`, charts and the dashboard to `figures/`, the Evidently report and reference data to `monitoring/`. MLflow
+writes its local store (`mlflow.db`, `mlruns/`) next to the notebook; both are ignored by Git, and
+`results/mlflow_runs.csv` keeps a copy of the runs' parameters and metrics. Re-running gives the same results
+(`SEED = 42`).
+
+**Opening the outputs:** `figures/dashboard.html` and `monitoring/evidently_train_vs_test.html` are self-contained pages:
+open them in any browser (double-click the file). They work offline. GitHub shows HTML files as source code, so download
+them or open them from a local clone.
+
+`src/phase2_features.py` is not imported by the notebook (the notebook is self-contained, as taught in the course). It
+is a copy of the notebook's feature-engineering code, checked to produce identical output, for Phases 3 and 4.
+
+## Data
+
+| Data | Where | How to get it |
+|---|---|---|
+| Phase 1 splits (`train.csv`, `validation.csv`, `test.csv`, `pipeline.pkl`) | Phase 1's folder in the repository | copy into `data/input/` or point `PHASE1_DIR` at them |
+| Phase 2 processed splits (`train_v2.csv` 190 MB, `validation_v2.csv` 41 MB, `test_v2.csv` 41 MB) | `phase2/data/processed/`, stored with **Git LFS** | `git lfs install` once, then clone or `git lfs pull`; or re-run the notebook, which recreates identical files |
+| Monitoring reference (`reference_data.csv`, 13 MB) | `phase2/monitoring/` | normal Git |
+
+Whoever commits the processed CSVs must run `git lfs install` first; otherwise Git tries to push `train_v2.csv` as a
+normal file and GitHub rejects it (100 MB limit). If the team's GitHub LFS quota runs out, the notebook regenerates the
+three files in a few minutes from the Phase 1 outputs.
+
+## Key results
+
+- **Churn drivers.** 24 of 41 candidate features are significant after the Bonferroni correction, but only 5 have
+  more than a negligible effect (all small): contract type, customer satisfaction, number of complaints, number of
+  service calls, and the engineered `m2m_x_complaints`. Churn is 26.4 % on month-to-month contracts vs 5.7 % on
+  two-year contracts. Demographics show no association with churn.
+- **Feature selection.** RFE on a stratified 100,000-row training sample ranked all 49 features; 5-fold
+  cross-validation on the same sample chose **9 features** (the smallest number within 0.001 of the best CV ROC-AUC,
+  0.6866). On validation, 9 features score ROC-AUC 0.6865 vs 0.6869 for all 49 and 0.6869 for the Phase 1 features.
+  The engineered features did not help Logistic Regression; tree models in Phase 3 may still use them.
+- **Baseline to beat (validation):** ROC-AUC **0.6865**, PR-AUC **0.2015** (a random model scores 0.0992, the churn
+  rate). Leak-free 5-fold CV on train: ROC-AUC 0.6841, PR-AUC 0.2007. At the default 0.5 threshold the model flags
+  almost nobody (recall 0.0026), because its highest predicted probability is 0.70 and churn is rare; choosing a
+  threshold is Phase 3 work.
+- **Train vs test drift (Evidently 0.7.23):** no drift in any of the 42 columns. The largest drift score is 0.015
+  (`avg_monthly_gb`, Wasserstein distance) against a threshold of 0.1. This is expected from Phase 1's stratified
+  random split.
+
+## Method notes
+
+- Statistical tests, fitting, scaling, correlation and feature selection use the training split only. Validation is
+  used only to compare the three feature sets and to report the baseline; it plays no part in choosing features. The
+  test split is transformed and saved for Phase 3, and its column distributions are compared with train in the
+  Evidently report; no model is trained, tuned or scored on it.
+- RFE runs on a stratified sample of 100,000 training rows (`train_test_split` with `stratify`, seed 42), as the team
+  breakdown specifies. The sample keeps the 9.92 % churn rate. The number of features is chosen with `RFECV` (5-fold
+  stratified CV, ROC-AUC) on the same sample.
+- Cross-validation is leak-free: preprocessing, scaling and RFE (on a stratified sample of the training folds) are
+  refitted inside every fold, and the model is trained on the training folds only.
+- Effect sizes use Cohen's thresholds (d: 0.2 / 0.5 / 0.8; V: 0.1 / 0.3 / 0.5). Drivers are ranked on one scale, the
+  absolute correlation with churn (Cramér's V or point-biserial r).
+
+## Known limitations and dependencies
+
+- **Phase 1 dependency.** Phase 2 needs the four Phase 1 files above. If Phase 1 changes its split or pipeline,
+  re-run this notebook; every Phase 2 output is regenerated.
+- **Pickles are version-bound.** `pipeline_v2.pkl` and `baseline_logreg.pkl` need `sklearn-features` and the pinned
+  scikit-learn.
+- **The baseline is weak by design.** It is the reference, not the model to deploy. Class imbalance (9.92 % churn) and
+  the decision threshold are not handled in Phase 2.
+- **MLflow store is local.** Each person who runs the notebook gets their own `mlflow.db`; `results/mlflow_runs.csv` is
+  the shared record of the Phase 2 runs.
+- **Evidently scope.** The team breakdown puts the train-vs-test Evidently report in Phase 2 (done here). The
+  requirements document lists Evidently under Week 4 monitoring; Phase 4 builds on `monitoring/reference_data.csv`.
+
+## Tested on
+
+| Computer | What was run | Python and libraries |
+|---|---|---|
+| Windows 11 laptop | Both notebooks from a fresh kernel in this folder layout, then a separate QA notebook | Python 3.13.14; the versions in `requirements.txt` |
+
+The explained notebook was run with VS Code's Run All. The code notebook was run top to bottom in a new kernel started
+with `jupyter_client` (VS Code would not attach a kernel to that file on the test laptop); both produced the same
+outputs. The QA notebook then passed all 186 checks (files, paths, data, feature code, pipeline, baseline, Evidently,
+MLflow, installed versions), and `pip check` reported no broken requirements. The same notebook run on Linux gave the
+same results (numeric differences below 1e-11).

@@ -1,0 +1,43 @@
+column,type,method,threshold,drift score,drift detected
+avg_monthly_gb,numerical,Wasserstein distance (normed),0.1,0.0151,False
+dependents,numerical,Wasserstein distance (normed),0.1,0.0141,False
+annual_income,numerical,Wasserstein distance (normed),0.1,0.0116,False
+tenure,numerical,Wasserstein distance (normed),0.1,0.0114,False
+log_annual_income,numerical,Wasserstein distance (normed),0.1,0.011,False
+charge_ratio,numerical,Wasserstein distance (normed),0.1,0.0099,False
+log_avg_monthly_gb,numerical,Wasserstein distance (normed),0.1,0.0099,False
+totalcharges,numerical,Wasserstein distance (normed),0.1,0.0094,False
+num_service_calls,numerical,Wasserstein distance (normed),0.1,0.0084,False
+m2m_x_complaints,numerical,Wasserstein distance (normed),0.1,0.008,False
+log_totalcharges,numerical,Wasserstein distance (normed),0.1,0.0075,False
+credit_score,numerical,Wasserstein distance (normed),0.1,0.0066,False
+calls_per_month,numerical,Wasserstein distance (normed),0.1,0.0065,False
+num_services,numerical,Wasserstein distance (normed),0.1,0.0063,False
+active_services,numerical,Wasserstein distance (normed),0.1,0.0062,False
+customer_satisfaction,numerical,Wasserstein distance (normed),0.1,0.0057,False
+monthlycharges,numerical,Wasserstein distance (normed),0.1,0.0054,False
+age,numerical,Wasserstein distance (normed),0.1,0.0053,False
+tenure_group,categorical,Jensen-Shannon distance,0.1,0.0051,False
+late_payments_per_month,numerical,Wasserstein distance (normed),0.1,0.0051,False
+days_since_last_interaction,numerical,Wasserstein distance (normed),0.1,0.0049,False
+complaints_per_month,numerical,Wasserstein distance (normed),0.1,0.0048,False
+num_complaints,numerical,Wasserstein distance (normed),0.1,0.0042,False
+gender,categorical,Jensen-Shannon distance,0.1,0.0039,False
+log_days_since_last_interaction,numerical,Wasserstein distance (normed),0.1,0.0038,False
+has_streaming_tv,categorical,Jensen-Shannon distance,0.1,0.0037,False
+contract,categorical,Jensen-Shannon distance,0.1,0.0035,False
+has_online_backup,categorical,Jensen-Shannon distance,0.1,0.0032,False
+education,categorical,Jensen-Shannon distance,0.1,0.0029,False
+has_phone_service,categorical,Jensen-Shannon distance,0.1,0.0027,False
+has_online_security,categorical,Jensen-Shannon distance,0.1,0.0026,False
+addons_without_internet,categorical,Jensen-Shannon distance,0.1,0.0026,False
+late_payments,numerical,Wasserstein distance (normed),0.1,0.0022,False
+has_streaming_movies,categorical,Jensen-Shannon distance,0.1,0.0022,False
+payment_method,categorical,Jensen-Shannon distance,0.1,0.002,False
+senior_citizen,categorical,Jensen-Shannon distance,0.1,0.0019,False
+has_internet_service,categorical,Jensen-Shannon distance,0.1,0.0017,False
+marital_status,categorical,Jensen-Shannon distance,0.1,0.0011,False
+paperless_billing,categorical,Jensen-Shannon distance,0.1,0.001,False
+has_device_protection,categorical,Jensen-Shannon distance,0.1,0.0005,False
+has_tech_support,categorical,Jensen-Shannon distance,0.1,0.0002,False
+churn,categorical,Jensen-Shannon distance,0.1,0.0,False

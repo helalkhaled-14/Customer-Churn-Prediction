@@ -1,0 +1,42 @@
+feature,test,statistic,p_value,effect_size_name,effect_size,effect_r,significant (p < 0.05),significant (Bonferroni),strength,interpretation,rank
+contract,chi-square,13585.198852108733,0.0,Cramér's V,0.13931054135127,0.13931054135127,True,True,small,churn rate differs between categories; small effect,1
+customer_satisfaction,ANOVA F-test,5043.847433691064,0.0,Cohen's d,-0.286730268011792,0.08542867289997262,True,True,small,churners have lower values; small effect,2
+num_complaints,ANOVA F-test,4310.419177439585,0.0,Cohen's d,0.2665118564972392,0.07941846654572085,True,True,small,churners have higher values; small effect,3
+num_service_calls,ANOVA F-test,4210.105885947705,0.0,Cohen's d,0.2594027647250685,0.07732073958060193,True,True,small,churners have higher values; small effect,4
+m2m_x_complaints,ANOVA F-test,3062.084282729687,0.0,Cohen's d,0.22462875579232397,0.06699884690862397,True,True,small,churners have higher values; small effect,5
+late_payments,ANOVA F-test,1532.2799367955392,0.0,Cohen's d,0.15649380448775455,0.046735387400194915,True,True,negligible,churners have higher values; negligible effect,6
+has_tech_support,chi-square,1410.5056278994473,1.0953170515629104e-308,Cramér's V,0.04488884092796731,0.04488884092796731,True,True,negligible,churn rate differs between categories; negligible effect,7
+complaints_per_month,ANOVA F-test,959.4270048735251,1.6630053468264518e-210,Cohen's d,0.12573690052768788,0.03756082226094937,True,True,negligible,churners have higher values; negligible effect,8
+calls_per_month,ANOVA F-test,873.4385213805589,7.665925358404689e-192,Cohen's d,0.11815286637970734,0.035301811347901675,True,True,negligible,churners have higher values; negligible effect,9
+num_services,ANOVA F-test,740.1510858289092,6.761902446644055e-163,Cohen's d,-0.10876477893298477,0.03249992126413482,True,True,negligible,churners have lower values; negligible effect,10
+has_online_security,chi-square,714.3752771386366,2.237435866304651e-157,Cramér's V,0.03194583087349666,0.03194583087349666,True,True,negligible,churn rate differs between categories; negligible effect,11
+active_services,ANOVA F-test,619.8342386645508,9.323033768516734e-137,Cohen's d,-0.09953271995947476,0.029743850331842132,True,True,negligible,churners have lower values; negligible effect,12
+late_payments_per_month,ANOVA F-test,403.98366648887753,7.928302311449241e-90,Cohen's d,0.08035446139030278,0.024016417212726213,True,True,negligible,churners have higher values; negligible effect,13
+monthlycharges,ANOVA F-test,190.17127444301272,2.9553767426260593e-43,Cohen's d,-0.05513159404819224,0.01648029850100803,True,True,negligible,churners have lower values; negligible effect,14
+has_internet_service,chi-square,177.4348763371637,1.7599999638933474e-40,Cramér's V,0.015921004829073344,0.015921004829073344,True,True,negligible,churn rate differs between categories; negligible effect,15
+totalcharges,ANOVA F-test,166.9689860979717,3.43225369414623e-38,Cohen's d,-0.05165900014040438,0.015442503765888372,True,True,negligible,churners have lower values; negligible effect,16
+log_totalcharges,ANOVA F-test,137.3316196464636,1.027384640191288e-31,Cohen's d,-0.046850406366803064,0.014005359909569035,True,True,negligible,churners have lower values; negligible effect,17
+log_avg_monthly_gb,ANOVA F-test,130.2127821319522,3.7051294723988086e-30,Cohen's d,-0.04683142277701468,0.013991217758697919,True,True,negligible,churners have lower values; negligible effect,18
+addons_without_internet,chi-square,124.1069840472152,7.98217537458753e-29,Cramér's V,0.013315242825274413,0.013315242825274413,True,True,negligible,churn rate differs between categories; negligible effect,19
+tenure,ANOVA F-test,95.87570674872909,1.2273784244831473e-22,Cohen's d,-0.03914554828922649,0.011702432638379806,True,True,negligible,churners have lower values; negligible effect,20
+tenure_group,chi-square,94.64084111609212,1.3587300354597467e-19,Cramér's V,0.011627605153014843,0.011627605153014843,True,True,negligible,churn rate differs between categories; negligible effect,21
+avg_monthly_gb,ANOVA F-test,21.907059702633603,2.8623544336572e-06,Cohen's d,-0.019208904130599697,0.005739262802790083,True,True,negligible,churners have lower values; negligible effect,22
+has_device_protection,chi-square,15.66389977582499,7.565449450299277e-05,Cramér's V,0.0047304333501012345,0.0047304333501012345,True,True,negligible,churn rate differs between categories; negligible effect,23
+has_online_backup,chi-square,15.34723259547359,8.945185768384477e-05,Cramér's V,0.00468237311558292,0.00468237311558292,True,True,negligible,churn rate differs between categories; negligible effect,24
+marital_status,chi-square,4.923207294237403,0.17750742381456,Cramér's V,0.002652009290610047,0.002652009290610047,False,False,negligible,not significant,25
+has_phone_service,chi-square,4.496420375500927,0.0339658854891994,Cramér's V,0.002534454118599711,0.002534454118599711,True,False,negligible,not significant,26
+has_streaming_tv,chi-square,3.047394298682107,0.08086678959728502,Cramér's V,0.002086485184871612,0.002086485184871612,False,False,negligible,not significant,27
+education,chi-square,2.691504260268599,0.6107020744834905,Cramér's V,0.0019608687070015673,0.0019608687070015673,False,False,negligible,not significant,28
+charge_ratio,ANOVA F-test,2.1990913365506297,0.13809256845824636,Cohen's d,0.005928566898261793,0.0017724441194479656,False,False,negligible,not significant,29
+days_since_last_interaction,ANOVA F-test,1.799017622106444,0.17983174012742026,Cohen's d,0.005362234467448236,0.001603130035982456,False,False,negligible,not significant,30
+has_streaming_movies,chi-square,1.5453870987657736,0.21381772409775412,Cramér's V,0.0014858317049315096,0.0014858317049315096,False,False,negligible,not significant,31
+payment_method,chi-square,1.4834105609366575,0.6861044230556108,Cramér's V,0.0014557327859862279,0.0014557327859862279,False,False,negligible,not significant,32
+annual_income,ANOVA F-test,1.270545477923844,0.25966477187118187,Cohen's d,0.004575089767571402,0.0013678880004712702,False,False,negligible,not significant,33
+log_days_since_last_interaction,ANOVA F-test,1.2691004425691434,0.25993589029376907,Cohen's d,0.004503768807816152,0.0013464778214511272,False,False,negligible,not significant,34
+age,ANOVA F-test,1.1094395611075245,0.2922041715211468,Cohen's d,0.004210948358983477,0.0012589343417071337,False,False,negligible,not significant,35
+log_annual_income,ANOVA F-test,0.9339198523738917,0.33384676526427737,Cohen's d,0.003922467185017514,0.0011727632455694496,False,False,negligible,not significant,36
+gender,chi-square,0.6853321458380707,0.7098752185460591,Cramér's V,0.0009894674944766074,0.0009894674944766074,False,False,negligible,not significant,37
+senior_citizen,chi-square,0.03319009695536203,0.8554402951768407,Cramér's V,0.0002177485343738179,0.0002177485343738179,False,False,negligible,not significant,38
+paperless_billing,chi-square,0.03203513722795272,0.8579505611594407,Cramér's V,0.00021392634656399424,0.00021392634656399424,False,False,negligible,not significant,39
+dependents,ANOVA F-test,0.00937389033951651,0.9228702792833055,Cohen's d,-0.00038706867501513034,0.00011572082793011952,False,False,negligible,not significant,40
+credit_score,ANOVA F-test,0.003917731988408595,0.9500915870471366,Cohen's d,-0.0002554852478563432,7.63780038028099e-05,False,False,negligible,not significant,41

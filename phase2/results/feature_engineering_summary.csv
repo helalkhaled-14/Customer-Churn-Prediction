@@ -1,0 +1,13 @@
+feature,type,formula,why,zero / missing handling,uses churn?,available before churn?
+tenure_group,category,"tenure cut into 0-6, 7-12, 13-24, 25-48, 49+ months",churn risk changes with customer age; groups are easy to explain,"last group is open-ended, so tenure > 72 at prediction time still gets a group",no,yes — built only from columns of the same customer row
+active_services,number,sum of the 8 has_* columns,real number of services (num_services does not match the flags),—,no,yes — built only from columns of the same customer row
+addons_without_internet,0/1,has_internet_service = 0 and at least one internet add-on = 1,marks the inconsistent records found in Phase 1,—,no,yes — built only from columns of the same customer row
+complaints_per_month,number,num_complaints / tenure,complaints relative to how long the customer has been with us,tenure 0 counts as 1,no,yes — built only from columns of the same customer row
+calls_per_month,number,num_service_calls / tenure,service calls relative to tenure,tenure 0 counts as 1,no,yes — built only from columns of the same customer row
+late_payments_per_month,number,late_payments / tenure,payment problems relative to tenure,tenure 0 counts as 1,no,yes — built only from columns of the same customer row
+charge_ratio,number,monthlycharges / (totalcharges / tenure),is the customer paying more now than on average? (price increase),tenure 0 counts as 1; totalcharges 0 → missing → median,no,yes — built only from columns of the same customer row
+m2m_x_complaints,number,"num_complaints if contract is month_to_month, else 0",complaints matter most when the customer can leave any month (interaction),—,no,yes — built only from columns of the same customer row
+log_annual_income,number,log(annual_income + 1),reduces right skew,+1 avoids log(0),no,yes — built only from columns of the same customer row
+log_totalcharges,number,log(totalcharges + 1),reduces right skew,+1 avoids log(0),no,yes — built only from columns of the same customer row
+log_avg_monthly_gb,number,log(avg_monthly_gb + 1),reduces right skew (many zeros),+1 avoids log(0),no,yes — built only from columns of the same customer row
+log_days_since_last_interaction,number,log(days_since_last_interaction + 1),reduces right skew,+1 avoids log(0),no,yes — built only from columns of the same customer row

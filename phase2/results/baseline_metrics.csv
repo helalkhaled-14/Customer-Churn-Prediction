@@ -1,0 +1,6 @@
+metric,"CV (train, 5 folds)",validation
+ROC-AUC,0.6841,0.6865
+PR-AUC,0.2007,0.2015
+precision (threshold 0.5),,0.527
+recall (threshold 0.5),,0.0026
+F1 (threshold 0.5),,0.0052

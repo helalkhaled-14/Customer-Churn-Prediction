@@ -1,0 +1,28 @@
+# ---- Phase 2: files that are generated locally or belong to another phase ----
+
+# Phase 1 outputs copied in as input (they are Phase 1's deliverables; see README "Inputs")
+data/input/*
+!data/input/.gitkeep
+
+# MLflow local tracking store and artifacts (machine-specific; results/mlflow_runs.csv is the committed copy)
+mlflow.db
+mlruns/
+mlartifacts/
+notebooks/mlflow.db
+notebooks/mlruns/
+notebooks/mlartifacts/
+
+# Python / Jupyter / editor clutter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Note: data/processed/*.csv is NOT ignored. It is stored with Git LFS (see .gitattributes and README "Data").
