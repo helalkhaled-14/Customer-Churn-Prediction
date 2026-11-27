@@ -1,0 +1,44 @@
+column,source,group,dtype,unique values,values,missing in train (%),churn % if missing,churn % if present
+customer_id,Phase 1 data,identifier,str,700000,one id per customer,0.0,,
+age,Phase 1 data,demographics,int64,73,18 to 90,0.0,,
+gender,Phase 1 data,demographics,str,3,"female, male, other",0.0,,
+annual_income,Phase 1 data,demographics,float64,608804,20000 to 250000,3.0,9.88,9.92
+education,Phase 1 data,demographics,str,5,"bachelor, college, high_school, master, phd",0.0,,
+marital_status,Phase 1 data,demographics,str,4,"divorced, married, single, widowed",0.0,,
+dependents,Phase 1 data,demographics,int64,6,0 to 5,0.0,,
+tenure,Phase 1 data,account and billing,int64,72,1 to 72,0.0,,
+contract,Phase 1 data,account and billing,str,3,"month_to_month, one_year, two_year",0.0,,
+payment_method,Phase 1 data,account and billing,str,4,"bank_transfer, credit_card, electronic_check, mailed_check",0.0,,
+paperless_billing,Phase 1 data,account and billing,int64,2,"0, 1",0.0,,
+senior_citizen,Phase 1 data,demographics,int64,2,"0, 1",0.0,,
+monthlycharges,Phase 1 data,account and billing,float64,14544,20 to 200,0.0,,
+totalcharges,Phase 1 data,account and billing,float64,357031,16.3 to 14468.1,0.0,,
+num_services,Phase 1 data,services,int64,6,1 to 6,0.0,,
+has_phone_service,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_internet_service,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_online_security,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_online_backup,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_device_protection,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_tech_support,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_streaming_tv,Phase 1 data,services,int64,2,"0, 1",0.0,,
+has_streaming_movies,Phase 1 data,services,int64,2,"0, 1",0.0,,
+customer_satisfaction,Phase 1 data,behaviour and usage,float64,9,1 to 9,1.99,9.68,9.93
+num_complaints,Phase 1 data,behaviour and usage,float64,8,0 to 7,2.99,10.0,9.92
+num_service_calls,Phase 1 data,behaviour and usage,int64,13,0 to 12,0.0,,
+late_payments,Phase 1 data,behaviour and usage,int64,6,0 to 5,0.0,,
+avg_monthly_gb,Phase 1 data,behaviour and usage,float64,25026,0 to 557.824,4.99,10.18,9.91
+days_since_last_interaction,Phase 1 data,behaviour and usage,int64,365,1 to 365,0.0,,
+credit_score,Phase 1 data,demographics,float64,535,300 to 850,4.06,9.95,9.92
+churn,Phase 1 data,target,int64,2,"0, 1",0.0,,
+tenure_group,Phase 2 feature (add_features),engineered in Phase 2,str,5,"0-6, 7-12, 13-24, 25-48, 49+",0.0,,
+active_services,Phase 2 feature (add_features),engineered in Phase 2,int64,9,0 to 8,0.0,,
+addons_without_internet,Phase 2 feature (add_features),engineered in Phase 2,int64,2,"0, 1",0.0,,
+complaints_per_month,Phase 2 feature (add_features),engineered in Phase 2,float64,265,0 to 7,2.99,10.0,9.92
+calls_per_month,Phase 2 feature (add_features),engineered in Phase 2,float64,477,0 to 12,0.0,,
+late_payments_per_month,Phase 2 feature (add_features),engineered in Phase 2,float64,209,0 to 5,0.0,,
+charge_ratio,Phase 2 feature (add_features),engineered in Phase 2,float64,697551,0.608334 to 2.96178,0.0,,
+m2m_x_complaints,Phase 2 feature (add_features),engineered in Phase 2,float64,7,0 to 6,2.99,10.0,9.92
+log_annual_income,Phase 2 feature (add_features),engineered in Phase 2,float64,608804,9.90354 to 12.4292,3.0,9.88,9.92
+log_totalcharges,Phase 2 feature (add_features),engineered in Phase 2,float64,357031,2.85071 to 9.57977,0.0,,
+log_avg_monthly_gb,Phase 2 feature (add_features),engineered in Phase 2,float64,25026,0 to 6.32583,4.99,10.18,9.91
+log_days_since_last_interaction,Phase 2 feature (add_features),engineered in Phase 2,float64,365,0.693147 to 5.90263,0.0,,

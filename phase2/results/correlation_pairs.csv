@@ -1,0 +1,8 @@
+feature_1,feature_2,pearson,spearman,above 0.7 with
+late_payments,late_payments_per_month,0.477,0.971,Spearman only
+tenure,log_totalcharges,0.832,0.959,both
+has_internet_service,addons_without_internet,-0.915,-0.915,both
+num_complaints,complaints_per_month,0.443,0.914,Spearman only
+num_service_calls,calls_per_month,0.384,0.719,Spearman only
+log_avg_monthly_gb,has_internet_service,0.87,0.619,Pearson only
+log_avg_monthly_gb,addons_without_internet,-0.796,-0.566,Pearson only

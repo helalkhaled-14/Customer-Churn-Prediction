@@ -15,6 +15,8 @@ evaluation fair. Paths are relative to the `phase2` folder of the repository.
 | Feature-engineering code | `src/phase2_features.py` (same code as notebook section 2) | Yes |
 | Feature documentation | `results/feature_engineering_summary.csv`, `reports/Phase2_Feature_Engineering_Summary.pdf` | Yes |
 | Statistical tests and effect sizes | `results/statistical_tests.csv`, `reports/Phase2_Data_Analysis_Report.pdf` | Yes |
+| Data overview and churn by group (train) | `results/column_overview.csv`, `results/churn_rate_by_group.csv` | Yes |
+| Highly correlated feature pairs (Pearson or Spearman above 0.7, train) | `results/correlation_pairs.csv` | Yes |
 | Baseline model and its metrics | `models/baseline_logreg.pkl`, `results/baseline_metrics.csv` | Yes |
 | MLflow runs (params and metrics) | `results/mlflow_runs.csv`; the live runs are in the local MLflow store of whoever runs the notebook | CSV yes, store no |
 | Reference data for monitoring (Phase 4) | `monitoring/reference_data.csv`, `monitoring/evidently_train_vs_test.html` | Yes |
@@ -135,7 +137,24 @@ tracking location (for example the same `MLFLOW_TRACKING_URI`). Log Phase 3 runs
 - `evidently` pins `plotly<6`; keep Plotly 5.24.1 if you install from `requirements.txt` in the same environment.
 - Do not overwrite Phase 2 outputs from Phase 3 code; write Phase 3 outputs to the Phase 3 folder.
 
-## 9. Not done in Phase 2 (Phase 3 scope)
+## 9. Leads from the Phase 2 analysis (to test in Phase 3, not conclusions)
+
+These are associations found on the training data. They suggest what to try; they do not show that a feature causes
+churn.
+
+- **`monthlycharges` is non-linear.** Its linear correlation with churn is about −0.01, yet churn falls steadily with
+  the monthly charge: 11.3 % up to 50, 10.0 % for 70–90, 8.2 % above 130 (section 3a, `figures/scatter_charges_tenure.png`).
+  Tree models can use this directly; for a linear model, compare bands or splines with cross-validation.
+- **Near-duplicate features.** `complaints_per_month`, `calls_per_month` and `late_payments_per_month` rank customers
+  almost like their counts (Spearman 0.91, 0.72, 0.97); `tenure` and `log_totalcharges` (Spearman 0.96) and
+  `has_internet_service` and `addons_without_internet` (−0.92) also overlap. With Logistic Regression, read the
+  coefficients of such pairs together, or keep one of each; see `results/correlation_pairs.csv`.
+- **Missing values carry almost no signal.** Churn is 9.7–10.2 % where a value is missing vs 9.9 % where it is present
+  (`results/column_overview.csv`), so the pipeline's median imputation loses little.
+- **All effects are small.** The strongest association is contract type (Cramér's V = 0.139); no feature has
+  |r| > 0.09 with churn. Expect gains over the baseline to be modest, and judge them on PR-AUC as well as ROC-AUC.
+
+## 10. Not done in Phase 2 (Phase 3 scope)
 
 Random Forest, XGBoost, SMOTE vs class weights, hyperparameter tuning, threshold selection, and the final test
 evaluation. Phase 4 will use `monitoring/reference_data.csv` as the Evidently reference for new data batches.
